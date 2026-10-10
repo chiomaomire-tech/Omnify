@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omnify — All-in-One Utility Hub</title>
+  <style>
+    :root {
+      --bg-main: #0b0f19;
+      --card-bg: #111827;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --input-bg: #030712;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      padding: 2.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .brand {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    header p {
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.65rem;
+    }
+
+    label {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="file"] {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    button {
+      background: var(--accent);
+      color: #0b0f19;
+      font-weight: 600;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease-in-out;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    button:hover {
+      background: var(--accent-hover);
+      color: #fff;
+    }
+
+    .result-box {
+      background: var(--input-bg);
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      min-height: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.3rem;
+      word-break: break-all;
+    }
+
+    .style-option {
+      background: var(--input-bg);
+      padding: 0.65rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .style-option:hover {
+      border-color: var(--accent);
+      background: var(--card-bg);
+    }
+
+    .copy-tag {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: 3rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">Omni<span>fy</span></div>
+    <p>Essential Digital Tools, Compact & Instant.</p>
+  </header>
+
+  <main class="grid">
+
+    <!-- 1. PREGNANCY CALCULATOR -->
+    <section class="card">
+      <h2>🤰 Pregnancy Due Date Calculator</h2>
+      <div>
+        <label for="lmpDate">First Day of Last Period (LMP)</label>
+        <input type="date" id="lmpDate">
+      </div>
+      <button onclick="calculatePregnancy()">Calculate Due Date</button>
+      <div class="result-box" id="pregnancyResult">Enter your LMP date above</div>
+    </section>
+
+    <!-- 2. OVULATION CALCULATOR -->
+    <section class="card">
+      <h2>🌸 Ovulation & Fertility Calculator</h2>
+      <div>
+        <label for="lastPeriodDate">First Day of Last Period</label>
+        <input type="date" id="lastPeriodDate">
+      </div>
+      <div>
+        <label for="cycleLength">Average Cycle Length (Days)</label>
+        <input type="number" id="cycleLength" value="28" min="21" max="45">
+      </div>
+      <button onclick="calculateOvulation()">Calculate Fertile Window</button>
+      <div class="result-box" id="ovulationResult">Enter cycle details above</div>
+    </section>
+
+    <!-- 3. AGE CALCULATOR -->
+    <section class="card">
+      <h2>📅 Age & Milestone Calculator</h2>
+      <div>
+        <label for="birthdate">Date of Birth</label>
+        <input type="date" id="birthdate">
+      </div>
+      <button onclick="calculateAge()">Calculate Age</button>
+      <div class="result-box" id="ageResult">Pick a date above</div>
+    </section>
+
+    <!-- 4. IMAGE COMPRESSOR -->
+    <section class="card">
+      <h2>🖼️ Image Compressor</h2>
+      <div>
+        <label for="imageInput">Upload Image (JPG / PNG)</label>
+        <input type="file" id="imageInput" accept="image/*">
+      </div>
+      <div>
+        <label for="quality">Quality: <span id="qualityVal">70%</span></label>
+        <input type="range" id="quality" min="10" max="90" value="70" oninput="document.getElementById('qualityVal').innerText = this.value + '%'">
+      </div>
+      <button onclick="compressImage()">Compress File</button>
+      <div id="compressResult" class="result-box" style="display:none; align-items: flex-start; gap: 0.5rem;">
+        <span id="compressStats" style="color: var(--text-muted); font-size: 0.85rem;"></span>
+        <a id="downloadLink" href="#" download="omnify-compressed.jpg"><button style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Download Image</button></a>
+      </div>
+    </section>
+
+    <!-- 5. PASSWORD GENERATOR -->
+    <section class="card">
+      <h2>🔒 Password Generator</h2>
+      <div>
+        <label for="passLength">Length (8 – 32 chars)</label>
+        <input type="number" id="passLength" value="16" min="8" max="32">
+      </div>
+      <button onclick="generatePassword()">Generate Secure Key</button>
+      <div class="result-box" style="flex-direction: row; align-items: center;">
+        <span id="passwordResult" style="font-family: monospace;">Click generate</span>
+        <button onclick="copyToClipboard('passwordResult')" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">Copy</button>
+      </div>
+    </section>
+
+    <!-- 6. STYLISH TEXT GENERATOR -->
+    <section class="card">
+      <h2>✨ Stylish Text Generator</h2>
+      <div>
+        <label for="textInput">Plain Text</label>
+        <input type="text" id="textInput" placeholder="Type text here..." oninput="convertText()">
+      </div>
+      <div id="styledResults" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <div class="style-option" style="cursor: default; color: var(--text-muted);">Type text above to preview styles</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Powered by Omnify
+  </footer>
+
+  <script>
+    // 1. PREGNANCY CALCULATOR
+    function calculatePregnancy() {
+      const input = document.getElementById('lmpDate').value;
+      const res = document.getElementById('pregnancyResult');
+      if (!input) {
+        res.innerText = "Please select the date of your last period.";
+        return;
+      }
+
+      const lmp = new Date(input + "T00:00:00");
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      if (lmp > today) {
+        res.innerText = "LMP date cannot be in the future.";
+        return;
+      }
+
+      // Estimated Due Date: LMP + 280 days (Naegele's rule)
+      const dueDate = new Date(lmp.getTime());
+      dueDate.setDate(dueDate.getDate() + 280);
+
+      // Current Gestational Age
+      const diffTime = today - lmp;
+      const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const weeks = Math.floor(totalDays / 7);
+      const days = totalDays % 7;
+
+      let trimester = "1st Trimester";
+      if (weeks >= 28) trimester = "3rd Trimester";
+      else if (weeks >= 13) trimester = "2nd Trimester";
+
+      res.innerHTML = `
+        <div><strong>Due Date:</strong> ${dueDate.toLocaleDateString(undefined, { dateStyle: 'long' })}</div>
+        <div><strong>Gestational Age:</strong> ${weeks} weeks, ${days} days</div>
+        <div style="color: var(--accent);"><strong>Stage:</strong> ${trimester}</div>
+      `;
+    }
+
+    // 2. OVULATION CALCULATOR
+    function calculateOvulation() {
+      const input = document.getElementById('lastPeriodDate').value;
+      const cycle = parseInt(document.getElementById('cycleLength').value) || 28;
+      const res = document.getElementById('ovulationResult');
+
+      if (!input) {
+        res.innerText = "Please select your last period date.";
+        return;
+      }
+
+      const lmp = new Date(input + "T00:00:00");
+      
+      // Estimated ovulation: cycle length minus 14 days
+      const ovulationDay = cycle - 14;
+      const ovulationDate = new Date(lmp.getTime());
+      ovulationDate.setDate(ovulationDate.getDate() + ovulationDay);
+
+      // Fertile window: 4 days before ovulation to 1 day after
+      const fertileStart = new Date(ovulationDate.getTime());
+      fertileStart.setDate(fertileStart.getDate() - 4);
+
+      const fertileEnd = new Date(ovulationDate.getTime());
+      fertileEnd.setDate(fertileEnd.getDate() + 1);
+
+      res.innerHTML = `
+        <div><strong>Estimated Ovulation:</strong> ${ovulationDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+        <div><strong>Fertile Window:</strong> ${fertileStart.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${fertileEnd.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</div>
+        <div style="color: var(--accent); font-size: 0.8rem; margin-top: 2px;">Peak fertility is on ovulation day and the day prior.</div>
+      `;
+    }
+
+    // 3. AGE CALCULATOR
+    function calculateAge() {
+      const input = document.getElementById('birthdate').value;
+      if (!input) {
+        document.getElementById('ageResult').innerText = "Please select a date.";
+        return;
+      }
+      const dob = new Date(input);
+      const today = new Date();
+
+      let years = today.getFullYear() - dob.getFullYear();
+      let months = today.getMonth() - dob.getMonth();
+      let days = today.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months--;
+        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      if (years < 0) {
+        document.getElementById('ageResult').innerText = "Date cannot be in the future.";
+        return;
+      }
+
+      document.getElementById('ageResult').innerText = `${years} Years, ${months} Months, ${days} Days`;
+    }
+
+    // 4. IMAGE COMPRESSOR
+    function compressImage() {
+      const fileInput = document.getElementById('imageInput');
+      const quality = document.getElementById('quality').value / 100;
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Please upload an image first.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function(event) {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+
+          canvas.toBlob(function(blob) {
+            const originalSize = (file.size / 1024).toFixed(1);
+            const newSize = (blob.size / 1024).toFixed(1);
+            
+            const downloadUrl = URL.createObjectURL(blob);
+            const dl = document.getElementById('downloadLink');
+            dl.href = downloadUrl;
+
+            document.getElementById('compressStats').innerText = `Original: ${originalSize} KB ➔ Compressed: ${newSize} KB`;
+            document.getElementById('compressResult').style.display = "flex";
+          }, 'image/jpeg', quality);
+        };
+      };
+    }
+
+    // 5. PASSWORD GENERATOR
+    function generatePassword() {
+      const len = parseInt(document.getElementById('passLength').value) || 16;
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+      let password = "";
+      
+      const array = new Uint32Array(len);
+      window.crypto.getRandomValues(array);
+      for (let i = 0; i < len; i++) {
+        password += chars[array[i] % chars.length];
+      }
+      
+      document.getElementById('passwordResult').innerText = password;
+    }
+
+    // 6. STYLISH TEXT
+    const fonts = {
+      bold: (str) => str.replace(/[a-zA-Z]/g, c => String.fromCodePoint(c.charCodeAt(0) + (c <= 'Z' ? 120211 : 120205))),
+      italic: (str) => str.replace(/[a-zA-Z]/g, c => String.fromCodePoint(c.charCodeAt(0) + (c <= 'Z' ? 120263 : 120257))),
+      monospace: (str) => str.replace(/[a-zA-Z0-9]/g, c => {
+        if (c >= '0' && c <= '9') return String.fromCodePoint(c.charCodeAt(0) + 120744);
+        return String.fromCodePoint(c.charCodeAt(0) + (c <= 'Z' ? 120367 : 120361));
+      }),
+      bubble: (str) => str.replace(/[a-zA-Z0-9]/g, c => {
+        if (c >= '0' && c <= '9') return c === '0' ? '⓪' : String.fromCodePoint(c.charCodeAt(0) + 9263);
+        return String.fromCodePoint(c.charCodeAt(0) + (c <= 'Z' ? 9333 : 9327));
+      })
+    };
+
+    function convertText() {
+      const text = document.getElementById('textInput').value;
+      const container = document.getElementById('styledResults');
+      if (!text) {
+        container.innerHTML = '<div class="style-option" style="cursor: default; color: var(--text-muted);">Type text above to preview styles</div>';
+        return;
+      }
+
+      const styles = [
+        fonts.bold(text),
+        fonts.italic(text),
+        fonts.monospace(text),
+        fonts.bubble(text)
+      ];
+
+      container.innerHTML = styles.map(styled => `
+        <div class="style-option" onclick="copyStyled(this)">
+          <span class="content">${styled}</span>
+          <span class="copy-tag">Copy</span>
+        </div>
+      `).join('');
+    }
+
+    // CLIPBOARD HELPERS
+    function copyToClipboard(id) {
+      const text = document.getElementById(id).innerText;
+      if (text && text !== "Click generate") {
+        navigator.clipboard.writeText(text);
+        alert("Copied to clipboard!");
+      }
+    }
+
+    function copyStyled(el) {
+      const text = el.querySelector('.content').innerText;
+      navigator.clipboard.writeText(text);
+      const tag = el.querySelector('.copy-tag');
+      const original = tag.innerText;
+      tag.innerText = "Copied!";
+      setTimeout(() => { tag.innerText = original; }, 1200);
+    }
+  </script>
+</body>
+</html>
